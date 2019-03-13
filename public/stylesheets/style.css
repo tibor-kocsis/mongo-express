@@ -30,6 +30,10 @@
   position: relative;
 }
 
+.tableWrapper th {
+  cursor: pointer;
+}
+
 .tableHeaderFooterBars {
   border-top-color: #337ab7;
   border-top-width: 5px;
@@ -64,6 +68,7 @@
 
 .tableContent pre {
   max-height: 20em;
+  max-width: 400px;
   overflow: auto;
   padding-right: 25px;
 }
