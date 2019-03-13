@@ -1,8 +1,8 @@
 mongo-express
 ===
 
-What means Mindsphere support?
-------------------------------
+What does Mindsphere support mean?
+----------------------------------
 
 - added config.mdsp.js to support mindsphere's mongo32 backing service out-of-box
 - added csrf token handling to all form and ajax request
