@@ -136,7 +136,7 @@
     </div>
   </div>
   {% if !settings.read_only && count > 0 %}
-  <div class="col-md-3" style="float:right">
+  <div class="col-md-2" style="float:right">
     <form id="deleteListForm" method="POST" style="display:inline;" action="{{ collectionUrl }}?key={{ key }}&value={{ value }}&type={{ type }}&query={{ query }}&projection={{ projection }}">
       {# Router is smart enough to transform method=POST + _method=delete into actual HTTP DELETE, which is what we want #}
       <input type="hidden" name="_method" value="delete">
@@ -147,6 +147,7 @@
       </button>
     </form>
   </div>
+  <div style="clear: both;"></div>
   {% endif %}
   <br/>
 
@@ -245,6 +246,7 @@
   <div class="table-responsive tableWrapper">
     <table class="table table-striped tableHeaderFooterBars">
       <thead>
+        <th></th>
         {% for column in columns %}
           <th class="sorting-button" data-column="{{column}}" data-direction="{{sort[column]}}" title="Sort by {{column}}">
             {{column}}
@@ -257,10 +259,10 @@
         {% endfor %}
       </thead>
       {% for document in docs %}
-        <tr onclick="loadDocument('{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}')">
-          {% for column in columns %}
-            <td><div class="tableContent">
-              {% if !settings.read_only && column === '_id' && collectionName !== 'system.indexes' %}
+        <tr>
+          <td nowrap>
+            <button type="button" class="btn btn-success glyphicon glyphicon-pencil" onclick="loadDocument('{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}')"></button>
+            {% if !settings.read_only && collectionName !== 'system.indexes' %}
                 <form class="deleteButtonDocument" method="POST" style="display:inline;" action="{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}?skip={{ skip }}&key={{ key }}&value={{ value }}&type={{ type }}&query={{ query }}&projection= {{ projection }}">
                 <input type="hidden" name="_method" value="delete">
                 <input type="hidden" name="_csrf" value="{{ csrf }}" />
@@ -269,6 +271,9 @@
                 </button>
                 </form>
               {% endif %}
+          </td>
+          {% for column in columns %}
+            <td><div class="tableContent">
             {{ document[column] | stringDocIDs | to_display | safe }}
             </div></td>
           {% endfor %}

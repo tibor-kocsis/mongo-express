@@ -27,7 +27,6 @@
 }
 
 .tableWrapper {
-  cursor: pointer;
   position: relative;
 }
 
@@ -61,6 +60,12 @@
   display: table;
   max-height: 100px;
   max-width: 100%;
+}
+
+.tableContent pre {
+  max-height: 20em;
+  overflow: auto;
+  padding-right: 25px;
 }
 
 .CodeMirror pre {
