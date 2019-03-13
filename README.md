@@ -1,6 +1,15 @@
 mongo-express
 ===
 
+What means Mindsphere support?
+------------------------------
+
+- added config.mdsp.js to support mindsphere's mongo32 backing service out-of-box
+- added csrf token handling to all form and ajax request
+
+After cf push, bind your mongo32 instance to the app and register the app with developer cockpit (create and manage permissions as well)
+
+
 [![npm version](https://badge.fury.io/js/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![npm](https://img.shields.io/npm/dm/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![GitHub stars](https://img.shields.io/github/stars/mongo-express/mongo-express.svg)](https://github.com/mongo-express/mongo-express/stargazers) [![Known Vulnerabilities](https://snyk.io/test/npm/name/badge.svg)](https://snyk.io/test/npm/mongo-express)
 [![Build Status](https://travis-ci.org/mongo-express/mongo-express.svg?branch=master)](https://travis-ci.org/mongo-express/mongo-express)
 
