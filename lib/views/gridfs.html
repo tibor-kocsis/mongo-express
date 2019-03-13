@@ -55,6 +55,7 @@
             <td>
               <div class="col-md-1">
                 <form method="POST" action="{{ dbUrl }}/gridFS/{{ bucketName }}/{{ file._id | json | safe | url_encode }}">
+                  <input type="hidden" name="_csrf" value="{{ csrf }}" />
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span>
@@ -92,6 +93,7 @@
   <div class="col-md-12">
     <h2>Add File</h2>
     <form method="POST" action="{{ dbUrl }}/gridFS/{{ bucketName }}/" enctype="multipart/form-data" class="well form-inline">
+      <input type="hidden" name="_csrf" value="{{ csrf }}" />
 
       <div class="form-group">
         <input type="file" class="input-medium span7" name="filefield">

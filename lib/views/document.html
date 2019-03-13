@@ -63,6 +63,7 @@
   id="documentEditForm"
   action="{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}"
 >
+<input type="hidden" name="_csrf" value="{{ csrf }}" />
   {% if docLength > 10 %}
     <div>
       {% if !settings.read_only %}
@@ -112,6 +113,7 @@
 {% if !settings.read_only %}
   <br>
   <form method="POST" action="{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}">
+    <input type="hidden" name="_csrf" value="{{ csrf }}" />
     <input type="hidden" name="_method" value="delete">
     <input type="submit" class="hidden" />
     <button class="btn btn-danger deleteButtonDocument">

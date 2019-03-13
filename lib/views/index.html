@@ -22,6 +22,7 @@
     </div>
     {% if !settings.read_only %}
     <form class="form-inline" method="POST" style="float:right;">
+      <input type="hidden" name="_csrf" value="{{ csrf }}" />
       <div class="input-group">
         <input class="form-control" type="text" id="database" name="database" placeholder="Database Name" title="Database Name">
         <span class="input-group-btn">
@@ -48,6 +49,7 @@
     <td class="col-md-2">
       <form method="POST" action="{{ baseHref }}{{ db | url_encode }}" style="margin: 0px;">
         <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="_csrf" value="{{ csrf }}" />
         <button type="submit" class="hidden"></button>
         <button type="button" class="btn btn-danger btn-block deleteButton" database-name="{{ db }}" >
           <span class="glyphicon glyphicon-trash"></span><br>Del

@@ -136,16 +136,17 @@
     </div>
   </div>
   {% if !settings.read_only && count > 0 %}
-  <p>
+  <div class="col-md-3" style="float:right">
     <form id="deleteListForm" method="POST" style="display:inline;" action="{{ collectionUrl }}?key={{ key }}&value={{ value }}&type={{ type }}&query={{ query }}&projection={{ projection }}">
       {# Router is smart enough to transform method=POST + _method=delete into actual HTTP DELETE, which is what we want #}
       <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="_csrf" value="{{ csrf }}" />
       <button type="button" data-toggle="modal" data-target="#deleteListModal" class="btn btn-danger btn-large btn-block">
         <span class="glyphicon glyphicon-trash"></span>
         Delete all {{count}} documents retrieved
       </button>
     </form>
-  </p>
+  </div>
   {% endif %}
   <br/>
 
@@ -154,6 +155,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <form id="addDocumentForm" method="post" action="{{ collectionUrl }}">
+      <input type="hidden" name="_csrf" value="{{ csrf }}" />
 
       <div class="modal-header">
         <button class="close" data-dismiss="modal">×</button>
@@ -184,7 +186,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <form id="addIndexForm" method="post" action="{{ dbUrl }}/addIndex/{{ collectionName | url_encode }}">
-
+      <input type="hidden" name="_csrf" value="{{ csrf }}" />
       <div class="modal-header">
         <button class="close" data-dismiss="modal">×</button>
         <h2>Add Indexes</h2>
@@ -261,6 +263,7 @@
               {% if !settings.read_only && column === '_id' && collectionName !== 'system.indexes' %}
                 <form class="deleteButtonDocument" method="POST" style="display:inline;" action="{{ collectionUrl }}/{{ document._id | json | safe | url_encode }}?skip={{ skip }}&key={{ key }}&value={{ value }}&type={{ type }}&query={{ query }}&projection= {{ projection }}">
                 <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="_csrf" value="{{ csrf }}" />
                 <button type="submit" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span>
                 </button>
@@ -315,6 +318,7 @@
       <div class="col-md-12">
         <h2>Rename Collection</h2>
         <form method="POST" action="{{ collectionUrl }}" class="well form-inline">
+          <input type="hidden" name="_csrf" value="{{ csrf }}" />
           <input type="hidden" name="_method" value="put">
           <div class="form-group">
             <span class="add-on">{{ dbName }} . </span>
@@ -332,7 +336,7 @@
   <h2>Tools</h2>
   <div class="row">
     {% if !settings.me_no_export %}
-      <div class="col-sm-4 {% if !settings.read_only %}col-lg-3{% endif %}">
+      <div class="col-sm-2 {% if !settings.read_only %}col-lg-3{% endif %}">
         <div class="well">
           <a href="{{ dbUrl }}/export/{{ collectionName | url_encode }}?key={{ key }}&value={{ value }}&type={{ type }}&query={{ query | url_encode }}&projection= {{ projection | url_encode }}{% for k, v in sort %}&sort[{{ k }}]={{ v }}{% endfor %}" class="btn btn-warning btn-block">
             <span class="glyphicon glyphicon-floppy-save"></span><br>Export Standard
@@ -340,7 +344,7 @@
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <div class="well">
           <a href="{{ dbUrl }}/expArr/{{ collectionName | url_encode }}?key={{ key }}&value={{ value }}&type={{ type }}&query={{ query | url_encode }}&projection= {{ projection | url_encode }}{% for k, v in sort %}&sort[{{ k }}]={{ v }}{% endfor %}" class="btn btn-warning btn-block">
             <span class="glyphicon glyphicon-floppy-save"></span><br>Export --jsonArray
@@ -348,7 +352,7 @@
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <div class="well">
           <a href="{{ dbUrl }}/expCsv/{{ collectionName | url_encode }}?key={{ key }}&value={{ value }}&type={{ type }}&query={{ query | url_encode }}&projection= {{ projection | url_encode }}{% for k, v in sort %}&sort[{{ k }}]={{ v }}{% endfor %}" class="btn btn-warning btn-block">
             <span class="glyphicon glyphicon-floppy-save"></span><br>Export --csv
@@ -357,7 +361,7 @@
       </div>
     {% endif %}
 
-    <div class="col-sm-4">
+    <div class="col-sm-2">
       <div class="well">
         <a href="{{ dbUrl }}/reIndex/{{ collectionName | url_encode }}" class="btn btn-warning btn-block">
           <span class="glyphicon glyphicon-resize-small"></span><br>Reindex
@@ -365,7 +369,7 @@
       </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-2">
       <div class="well">
         <a class="btn btn-warning btn-block import-file-link">
           <span class="glyphicon glyphicon-cloud-upload"></span><br>Import --mongoexport json
@@ -375,16 +379,17 @@
     </div>
 
     {% if !settings.read_only %}
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <div class="well">
           <a href="{{ dbUrl }}/compact/{{ collectionName | url_encode }}" class="btn btn-danger btn-block">
             <span class="glyphicon glyphicon-resize-small"></span><br>Compact
           </a>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <form method="POST" action="{{ collectionUrl }}" class="well">
         <form method="POST" action="{{ baseHref }}db/{{ dbName }}/{{ collectionName | url_encode }}" id="db-{{ dbName }}-{{ collectionName }}" class="well">
+          <input type="hidden" name="_csrf" value="{{ csrf }}" />
           <input type="hidden" name="_method" value="delete">
           <input type="submit" class="hidden" />
           <button type="button" class="btn btn-danger deleteButtonCollection btn-block" collection-name="{{ collectionName }}">
